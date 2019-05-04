@@ -76,6 +76,9 @@ ffi.cdef [[
   MagickBooleanType MagickGetImagePixelColor(MagickWand *wand,
     const ssize_t x,const ssize_t y,PixelWand *color);
 
+  MagickBooleanType MagickSetImagePixelColor(MagickWand *wand,
+    const ssize_t x,const ssize_t y,PixelWand *color);
+
   MagickWand* MagickCoalesceImages(MagickWand*);
 
   PixelWand *NewPixelWand(void);
