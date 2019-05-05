@@ -196,6 +196,15 @@ do
       assert(lib.MagickGetImagePixelColor(self.wand, x, y, self.pixel_wand), "failed to get pixel")
       return lib.PixelGetRed(self.pixel_wand), lib.PixelGetGreen(self.pixel_wand), lib.PixelGetBlue(self.pixel_wand), lib.PixelGetAlpha(self.pixel_wand)
     end,
+    set_pixel = function(self, x, y, r, g, b, a)
+      self.pixel_wand = self.pixel_wand or ffi.gc(lib.NewPixelWand(), lib.DestroyPixelWand)
+      local rr, gg, bb, aa = get_pixel(x, y)
+      lib.PixelSetRed(self.pixel_wand, r or rr)
+      lib.PixelSetGreen(self.pixel_wand, g or gg)
+      lib.PixelSetBlue(self.pixel_wand, b or bb)
+      lib.PixelSetAlpha(self.pixel_wand, a or aa)
+      return lib.MagickSetImagePixelColor(self.wand, x, y, self.pixel_wand)
+    end,
     transpose = function(self)
       return handle_result(self, lib.MagickTransposeImage(self.wand))
     end,
