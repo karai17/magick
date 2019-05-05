@@ -165,12 +165,12 @@ class Image extends require "magick.base_image"
 
   set_pixel: (x,y, r,g,b,a) =>
     @pixel_wand or= ffi.gc lib.NewPixelWand!, lib.DestroyPixelWand
-    local rr, gg, bb, aa = get_pixel x,y
+    rr, gg, bb, aa = get_pixel x,y
 
-    lib.PixelSetRed(@pixel_wand, r or rr)
-    lib.PixelSetGreen(@pixel_wand, g or gg)
-    lib.PixelSetBlue(@pixel_wand, b or bb)
-    lib.PixelSetAlpha(@pixel_wand, a or aa)
+    lib.PixelSetRed @pixel_wand, r or rr
+    lib.PixelSetGreen @pixel_wand, g or gg
+    lib.PixelSetBlue @pixel_wand, b or bb
+    lib.PixelSetAlpha @pixel_wand, a or aa
 
     lib.MagickSetImagePixelColor(@wand, x,y, @pixel_wand)
 
